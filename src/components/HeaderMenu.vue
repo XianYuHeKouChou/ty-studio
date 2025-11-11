@@ -2,13 +2,6 @@
   <el-menu
     mode="horizontal"
   >
-    <el-menu-item index="0">
-      <img
-        style="width: 100px"
-        src="@/static/element-plus-logo.svg"
-        alt="Element logo"
-      />
-    </el-menu-item>
     <el-menu-item index="1">Processing Center</el-menu-item>
     <el-sub-menu index="2">
       <template #title>Workspace</template>

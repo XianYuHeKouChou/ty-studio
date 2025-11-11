@@ -1,9 +1,13 @@
+<template>
+  <div></div>
+</template>
+
 <script>
 import {ALL_PERMISSIONS, USER_PERMISSIONS_KEY, DEFAULT_ROLE} from "@/config/settings.js";
 import {applyUserRoutes} from "@/router/index.js";
 
 export default {
-  beforeMount() {
+  mounted() {
     this.initUserPermissions()
     this.validateUserPermissions()
   },
@@ -33,7 +37,7 @@ export default {
         if (redirectedFrom) {
           this.$router.replace({path: redirectedFrom})
         } else {
-          this.$router.replace({path: '/HomeView'})
+          this.$router.replace({path: '/homeView'})
         }
       }
     }

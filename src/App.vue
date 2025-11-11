@@ -1,12 +1,12 @@
 <template>
   <el-container class="h-screen">
-    <el-header v-show="!isFullscreen">
-      <HeaderMenu/>
-    </el-header>
+    <el-aside v-show="!isFullscreen" width="200px">
+      <AsideMenu/>
+    </el-aside>
     <el-container>
-      <el-aside v-show="!isFullscreen" width="200px">
-        <AsideMenu/>
-      </el-aside>
+      <el-header v-show="!isFullscreen">
+        <HeaderMenu/>
+      </el-header>
       <el-main style="padding: 0">
         <RouterView/>
       </el-main>
