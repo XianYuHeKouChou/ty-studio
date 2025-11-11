@@ -15,9 +15,8 @@
 </template>
 
 <script>
-import HeaderMenu from "@/components/HeaderMenu.vue";
 import AsideMenu from "@/components/AsideMenu.vue";
-import {USER_PERMISSIONS_KEY, ALL_PERMISSIONS} from "@/config/settings.js";
+import HeaderMenu from "@/components/HeaderMenu.vue";
 
 export default {
   components: {
@@ -27,16 +26,6 @@ export default {
   computed: {
     isFullscreen() {
       return this.$route?.meta?.fullscreen === true
-    }
-  },
-  mounted() {
-    const USER_PERMISSIONS_VALUES = localStorage.getItem(USER_PERMISSIONS_KEY)
-    if (!USER_PERMISSIONS_VALUES) {
-      localStorage.setItem(USER_PERMISSIONS_KEY, 'Unauthorized')
-    }
-    const effective_items = ALL_PERMISSIONS.some(item => item.value === USER_PERMISSIONS_VALUES)
-    if (!effective_items) {
-      localStorage.setItem(USER_PERMISSIONS_KEY, 'Unauthorized')
     }
   }
 }

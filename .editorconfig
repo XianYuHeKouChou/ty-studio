@@ -1,8 +1,13 @@
-[*.{js,jsx,mjs,cjs,ts,tsx,mts,cts,vue,css,scss,sass,less,styl}]
-charset = utf-8
-indent_size = 2
-indent_style = space
-insert_final_newline = true
-trim_trailing_whitespace = true
-end_of_line = lf
-max_line_length = 100
+root = true
+
+[*]
+charset = utf-8          # 文件编码使用UTF-8
+indent_style = space     # 使用空格进行缩进
+indent_size = 2          # 缩进大小为2个空格
+end_of_line = lf         # 行尾换行符使用LF（Linux/macOS风格）
+insert_final_newline = true     # 文件末尾自动插入空行
+trim_trailing_whitespace = true # 自动删除行尾多余空格
+
+[*.md]
+max_line_length = off            # 关闭行长度的限制
+trim_trailing_whitespace = false # 保留行尾空格（对于MD换行很重要）

@@ -8,3 +8,9 @@ export const ALL_PERMISSIONS = [
   {label: '组员', value: 'member'},
   {label: '未授权', value: 'Unauthorized'}
 ]
+
+// 所有权限值列表
+export const PERMISSION_VALUES = ALL_PERMISSIONS.map(p => p.value)
+
+// 默认权限
+export const DEFAULT_ROLE = 'Unauthorized'

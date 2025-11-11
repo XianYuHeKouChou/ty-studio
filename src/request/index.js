@@ -7,12 +7,18 @@
 import axios from 'axios';
 
 const http = axios.create({
-  baseURL: 'http://localhost:3000',
-  timeout: 5000,
-  headers: {
-    Authorization: localStorage.getItem('Authorization') || ''
+  baseURL: import.meta.env.VITE_APP_BASE_LOCAL + import.meta.env.VITE_APP_BASE_API,
+  timeout: 8000,
+})
+
+// 动态附加鉴权
+http.interceptors.request.use(cfg => {
+  const token = localStorage.getItem(import.meta.env.VITE_APP_TOKEN_KEY)
+  if (token) {
+    cfg.headers[import.meta.env.VITE_APP_TOKEN_KEY] = token
   }
-});
+  return cfg
+})
 
 // 读取类请求：同路径+同参数取消上一条
 const inflightByCompositeKey = new Map();
@@ -99,9 +105,14 @@ export function request(config) {
   if (isMutation) {
     const prev = inflightMutationsByPath.get(pathKey);
     if (prev && !prev.controller.signal.aborted) {
-      const err = new Error(`修改操作被拦截：同一路径存在不同参数的上一个请求未完成：${pathKey}`);
-      console.error(err.message);
-      return Promise.reject(err);
+      console.error(`修改操作被拦截：同一路径存在不同参数的上一个请求未完成：${pathKey}`);
+      return Promise.reject({
+        message: `并发写操作被拒绝: ${pathKey}`,
+        status: 0,
+        url: cfg.url,
+        method,
+        aborted: false
+      })
     }
     inflightMutationsByPath.set(pathKey, {controller});
   } else {
