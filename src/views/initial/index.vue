@@ -1,7 +1,3 @@
-<template>
-  <span>你是个人</span>
-</template>
-
 <script>
 import {ALL_PERMISSIONS, USER_PERMISSIONS_KEY, DEFAULT_ROLE} from "@/config/settings.js";
 import {applyUserRoutes} from "@/router/index.js";
