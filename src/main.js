@@ -9,6 +9,7 @@ import App from './App.vue'
 import router from './router'
 
 import request from '@/request/index.js'
+import {useCounterStore} from '@/stores/counter.js'
 import utilTools from '@/utils/common.js'
 import utilModal from '@/utils/modal.js'
 
@@ -16,6 +17,7 @@ function installCore(app) {
   app.provide('request', request)
   app.provide('tools', utilTools)
   app.provide('modal', utilModal)
+  app.provide('store', useCounterStore)
 }
 
 const app = createApp(App)

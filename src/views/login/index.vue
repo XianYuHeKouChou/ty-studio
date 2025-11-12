@@ -23,7 +23,7 @@
               >
                 <template #prefix>
                   <el-icon class="text-gray-400">
-                    <component :is="UserFilled" />
+                    <component :is="UserFilled"/>
                   </el-icon>
                 </template>
               </el-input>
@@ -39,15 +39,15 @@
               >
                 <template #prefix>
                   <el-icon class="text-gray-400">
-                    <component :is="Lock" />
+                    <component :is="Lock"/>
                   </el-icon>
                 </template>
               </el-input>
             </el-form-item>
 
             <div class="flex items-center justify-between mb-1">
-              <el-checkbox v-model="remember" label="记住我" />
-              <a href="javascript:;" class="text-sm text-blue-600 hover:underline">忘记密码?</a>
+              <el-checkbox v-model="remember" label="记住我"/>
+              <a href="" class="text-sm text-blue-600 hover:underline">忘记密码?</a>
             </div>
 
             <el-button
@@ -68,7 +68,10 @@
 <script>
 import {Lock, UserFilled} from "@element-plus/icons-vue";
 
+import {applyUserRoutes} from "@/router/index.js";
+
 export default {
+  inject: ['store'],
   computed: {
     UserFilled() {
       return UserFilled
@@ -86,30 +89,19 @@ export default {
       loading: false,
       remember: true,
       rules: {
-        identifier: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+        identifier: [{required: true, message: '请输入账号', trigger: 'blur'}],
         password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 6, message: '密码至少 6 位', trigger: 'blur' }
+          {required: true, message: '请输入密码', trigger: 'blur'},
+          {min: 6, message: '密码至少 6 位', trigger: 'blur'}
         ]
       }
     };
   },
   methods: {
     onSubmit() {
-      if (this.loading) return;
-      this.$refs.loginFormRef?.validate((valid) => {
-        if (!valid) return;
-        this.loading = true;
-        // TODO: 调用实际登录接口，示例为模拟请求
-        setTimeout(() => {
-          this.loading = false;
-          // 登录成功后的处理，如：this.$router.push('/')
-          console.log('login payload:', {
-            ...this.loginForm,
-            remember: this.remember
-          });
-        }, 800);
-      });
+      this.store().setUserRole('leader');
+      applyUserRoutes();
+      this.$router.push({path: '/homeView'});
     },
   },
 };

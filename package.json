@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
+    "@kjgl77/datav-vue3": "^1.7.4",
     "@tailwindcss/vite": "^4.1.16",
     "axios": "^1.13.2",
     "element-plus": "^2.11.5",

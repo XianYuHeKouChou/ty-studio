@@ -1,5 +1,5 @@
 export default {
-  title: '初始页面',
+  title: 'Initializing',
   fullscreen: true,
   roles: ['admin', 'leader', 'member', 'Unauthorized']
 }

@@ -53,9 +53,7 @@ function normalizeChildrenSpec(childrenSpec) {
   return Array.isArray(childrenSpec) ? childrenSpec : [childrenSpec]
 }
 
-function buildMenuTree() {
-  const role = localStorage.getItem(USER_PERMISSIONS_KEY) || DEFAULT_ROLE
-
+function buildMenuTree(role) {
   const groupOrder = (menuMeta?.pageInfo || []).map(i => i.key)
   const groupDict = {}
   const ensureGroup = (key, name) => {
@@ -142,10 +140,11 @@ function buildMenuTree() {
 }
 
 export default {
+  inject: ['store'],
   name: 'AsideMenu',
   computed: {
     menuTree() {
-      return buildMenuTree()
+      return buildMenuTree(this.store()[USER_PERMISSIONS_KEY])
     }
   }
 }
@@ -156,7 +155,7 @@ export default {
   --el-menu-bg-color: #304156;
   --el-menu-text-color: #bfcbd9;
   --el-menu-active-color: #409eff;
-  --el-menu-hover-bg-color: rgba(0,0,0,.06)
+  --el-menu-hover-bg-color: rgba(0, 0, 0, .06)
 }
 
 .aside-menu {

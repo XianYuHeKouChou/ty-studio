@@ -1,36 +1,35 @@
 <template>
-  <div></div>
+  <div class="h-full flex justify-center items-center">
+    <div class="flex-col gap-4 w-full flex items-center justify-center">
+      <div
+        class="w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full">
+        <div
+          class="w-16 h-16 border-4 border-transparent text-red-400 text-2xl animate-spin flex items-center justify-center border-t-red-400 rounded-full"
+        ></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import {ALL_PERMISSIONS, USER_PERMISSIONS_KEY, DEFAULT_ROLE} from "@/config/settings.js";
+import {USER_PERMISSIONS_KEY, DEFAULT_ROLE} from "@/config/settings.js";
 import {applyUserRoutes} from "@/router/index.js";
 
 export default {
+  inject: ['store'],
   mounted() {
-    this.initUserPermissions()
-    this.validateUserPermissions()
+    setTimeout(() => {
+      this.initUserPermissions()
+    }, 0)
   },
   methods: {
     /**
      * 初始化本地存储的用户权限信息
      */
     initUserPermissions() {
-      const USER_PERMISSIONS_VALUES = localStorage.getItem(USER_PERMISSIONS_KEY)
-      if (!USER_PERMISSIONS_VALUES) {
-        localStorage.setItem(USER_PERMISSIONS_KEY, DEFAULT_ROLE)
-      }
-      const effective_items = ALL_PERMISSIONS.some(item => item.value === USER_PERMISSIONS_VALUES)
-      if (!effective_items) {
-        localStorage.setItem(USER_PERMISSIONS_KEY, DEFAULT_ROLE)
-      }
-    },
-    /**
-     * 验证用户权限是否合法
-     */
-    validateUserPermissions() {
+      this.store().loadUserRole()
       const redirectedFrom = this.$route.query.redirectedFrom
-      if (localStorage.getItem('currentUserRole') === DEFAULT_ROLE) {
+      if (this.store()[USER_PERMISSIONS_KEY] === DEFAULT_ROLE) {
         this.$router.replace({path: '/login'})
       } else {
         applyUserRoutes()

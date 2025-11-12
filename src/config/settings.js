@@ -10,7 +10,7 @@ export const ALL_PERMISSIONS = [
 ]
 
 // 所有权限值列表
-export const PERMISSION_VALUES = ALL_PERMISSIONS.map(p => p.value)
+export const PERMISSION_VALUES = ["admin", "leader", "member", "Unauthorized"]
 
 // 默认权限
 export const DEFAULT_ROLE = 'Unauthorized'
